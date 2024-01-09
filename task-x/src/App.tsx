@@ -1,11 +1,11 @@
-import "./App.css";
+import { TaskListProvider } from "./context";
+import { TaskListComponent } from "./Public/TaskListComponent";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Task Management Board</h1>
-    </div>
+    <TaskListProvider>
+      <TaskListComponent />
+    </TaskListProvider>
   );
 }
-
 export default App;
