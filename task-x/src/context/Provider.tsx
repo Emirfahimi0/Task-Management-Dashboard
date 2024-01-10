@@ -9,11 +9,12 @@ interface TaskListProviderContextProps {
   taskList: Tasks[] | undefined;
   showAlert: boolean;
   setExistingTaskList: (list: Tasks[]) => void;
+  updateTaskList: (list: Tasks[]) => void;
   addTask: (tasks: Tasks) => void;
 }
 
 const TaskListContext = createContext<TaskListProviderContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 const { Provider } = TaskListContext;
@@ -32,16 +33,22 @@ export const TaskListProvider = ({ children }: TypeTaskListProvider) => {
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const setExistingTaskList = (value: Tasks[]) => {
-    const updatedValue = value.slice(0, 10);
+    const updatedValue = value.slice(0, 5);
     setTaskList(updatedValue);
   };
 
   const addTask = async (task: Tasks) => {
-    setTaskList((prevTaskList) => [...prevTaskList!, task]);
+    setTaskList((prevTaskList) =>
+      prevTaskList === undefined ? [] : [...prevTaskList, task],
+    );
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
     }, 5000);
+  };
+
+  const updateTaskList = (task: Tasks[]) => {
+    setTaskList(task);
   };
 
   const contextValue: TaskListProviderContextProps = {
@@ -49,6 +56,7 @@ export const TaskListProvider = ({ children }: TypeTaskListProvider) => {
     showAlert,
     setExistingTaskList,
     addTask,
+    updateTaskList,
   };
 
   return <Provider value={contextValue}>{children}</Provider>;

@@ -3,7 +3,6 @@ import { centerHorizontal, colorGreen } from "../style";
 import { Icon, IconProps } from "./IcoMoon";
 
 interface CustomButtonActionProps {
-  backgroundColor: string;
   label?: string;
   onPress: () => void;
   textColor: string;
@@ -14,7 +13,6 @@ interface CustomButtonActionProps {
 
 export const CustomButtonAction: FunctionComponent<CustomButtonActionProps> = ({
   label,
-  backgroundColor,
   textColor,
   disabledContinue,
   onPress,
@@ -23,7 +21,7 @@ export const CustomButtonAction: FunctionComponent<CustomButtonActionProps> = ({
 }: CustomButtonActionProps) => {
   const checkDisable =
     disabledContinue === true ? "opacity-50 cursor-not-allowed" : "";
-  const defaultClass = `${backgroundColor} text-${textColor} px-2 py-2 font-sm rounded-md ${checkDisable} `;
+  const defaultClass = `text-${textColor} px-2 py-2 font-sm rounded-md ${checkDisable} `;
   const buttonStyle =
     customStyle === undefined
       ? defaultStyle
@@ -44,7 +42,7 @@ export const CustomButtonAction: FunctionComponent<CustomButtonActionProps> = ({
       >
         <div className="flex flex-grow">
           <div
-            className={`${centerHorizontal} justify-center items-center gap-2`}
+            className={`${centerHorizontal} justify-center items-center gap-1`}
           >
             {label === undefined ? null : (
               <span className="text-sm">{label}</span>
