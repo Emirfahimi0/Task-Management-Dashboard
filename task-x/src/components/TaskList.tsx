@@ -3,10 +3,12 @@ import { CustomButtonAction } from ".";
 import { ENGLISH } from "../constant";
 import {
   colorBlue,
+  colorGray,
   colorGreen,
   colorPurple,
   colorRed,
   flexCol,
+  flexRow,
   fullWidth,
   textSmall,
 } from "../style";
@@ -17,22 +19,34 @@ const { TASK } = ENGLISH;
 interface TaskListProps {
   id: number;
   title: string;
+  urgency?: boolean;
+  completed: boolean;
   status: TypeStatus;
   dueDate?: string;
   handleDelete: () => void;
   handleMarkComplete: () => void;
+  handleMarkImportant: () => void;
 }
 
 export const TaskList: FunctionComponent<TaskListProps> = ({
   ...props
 }: TaskListProps) => {
-  const { title, status, dueDate, handleDelete, handleMarkComplete } = props;
+  const {
+    title,
+    status,
+    completed,
+    urgency,
+    dueDate,
+    handleDelete,
+    handleMarkComplete,
+    handleMarkImportant,
+  } = props;
 
   let borderColorStatus;
 
   switch (status) {
     case "important":
-      borderColorStatus = colorRed[500];
+      borderColorStatus = colorGray[700];
       break;
     case "completed":
       borderColorStatus = colorGreen[400];
@@ -53,12 +67,12 @@ export const TaskList: FunctionComponent<TaskListProps> = ({
     height: "100%",
   };
   const markButtonStyle: CSSProperties = {
-    backgroundColor: status === "incomplete" ? colorBlue[900] : colorBlue[500],
+    backgroundColor: completed === true ? colorBlue[900] : colorBlue[500],
     padding: 8,
     height: "100%",
   };
   const markImportantStyle: CSSProperties = {
-    backgroundColor: colorPurple[400],
+    backgroundColor: urgency === true ? colorPurple[400] : colorGreen[500],
     padding: 8,
     height: "100%",
   };
@@ -84,7 +98,7 @@ export const TaskList: FunctionComponent<TaskListProps> = ({
               <p className={`text-gray-400 ${textSmall} `}>{date}</p>
             </div>
           </div>
-          <div className="gap-2 flex flex-row">
+          <div className={`gap-2 ${flexRow}`}>
             <CustomButtonAction
               textColor={"white"}
               iconStyle={{
@@ -103,8 +117,8 @@ export const TaskList: FunctionComponent<TaskListProps> = ({
               }}
               label="Important"
               customStyle={markImportantStyle}
-              onPress={handleDelete}
-              disabledContinue={false}
+              onPress={handleMarkImportant}
+              disabledContinue={status === "completed"}
             />
             <CustomButtonAction
               textColor={"white"}

@@ -75,7 +75,7 @@ export const ContainerTask: FunctionComponent<ContainerTaskProps> = ({
         ? 0
         : taskList.reduce(
             (max, current) => (current.id > max ? current.id : max),
-            0,
+            0
           );
 
     addTask({
@@ -97,13 +97,14 @@ export const ContainerTask: FunctionComponent<ContainerTaskProps> = ({
   const disableContinue = !!(
     errorTitle ||
     title.trim() === "" ||
-    title.length < 10
+    title.length < 10 ||
+    title.length > 25
   );
 
   return (
     <Fragment>
       <div
-        className=" container p-4 md:shadow-2xl mt-4"
+        className="w-full p-4 shadow-md md:shadow-2xl mt-4"
         style={{ borderRadius: 8 }}
       >
         <div className={headerTitleStyle}>
@@ -154,13 +155,15 @@ export const ContainerTask: FunctionComponent<ContainerTaskProps> = ({
             ) : (
               <Fragment>
                 {taskList.map((props, index) => {
-                  const handleDeleteTask = (id: number) => {
-                    const newTaskList =
-                      taskList === undefined || taskList.length === 0
-                        ? []
-                        : taskList.filter((eachList) => eachList.id !== id);
+                  const handleImportantTask = () => {
+                    const updatedTaskList = [...taskList];
+                    updatedTaskList[index] = {
+                      ...taskList[index],
+                      urgency: !props.urgency,
+                      status: "important",
+                    };
 
-                    updateTaskList(newTaskList);
+                    updateTaskList(updatedTaskList);
                   };
 
                   const handleMarkCompleteTask = () => {
@@ -175,6 +178,16 @@ export const ContainerTask: FunctionComponent<ContainerTaskProps> = ({
 
                     updateTaskList(updatedTaskList);
                   };
+
+                  const handleDeleteTask = (id: number) => {
+                    const newTaskList =
+                      taskList === undefined || taskList.length === 0
+                        ? []
+                        : taskList.filter((eachList) => eachList.id !== id);
+
+                    updateTaskList(newTaskList);
+                  };
+
                   return (
                     <Fragment key={`${index}+${props.id}`}>
                       <div className="py-4">
@@ -182,6 +195,7 @@ export const ContainerTask: FunctionComponent<ContainerTaskProps> = ({
                           {...props}
                           handleDelete={() => handleDeleteTask(props.id)}
                           handleMarkComplete={handleMarkCompleteTask}
+                          handleMarkImportant={handleImportantTask}
                           key={index}
                         />
                       </div>

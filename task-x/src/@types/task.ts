@@ -6,5 +6,6 @@ export declare interface Tasks {
   completed: boolean;
   dueDate?: string;
   status: TypeStatus;
+  urgency?: boolean;
   errorTitle?: string;
 }

@@ -1,10 +1,10 @@
 import { TaskListProvider } from "./context";
-import { TaskListComponent } from "./pages/TaskList/TaskListComponent";
+import { DashBoard } from "./pages";
 
 function App() {
   return (
     <TaskListProvider>
-      <TaskListComponent />
+      <DashBoard />
     </TaskListProvider>
   );
 }
