@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Icon, IconProps } from "./IcoMoon";
-import { flexRow, fullWidth, textBase, textXSmall } from "../style";
+import { flexCol, flexRow, fullWidth, textBase, textXSmall } from "../style";
 import { Tasks } from "../@types/task";
 
 export interface ContainerCardProps {
@@ -22,25 +22,22 @@ export const ContainerCard: FunctionComponent<ContainerCardProps> = ({
       : iconStyle;
 
   return (
-    <div className={`md:${fullWidth} p-4 shadow-md  sm:w-full md:w-auto`}>
-      <div className="space-y-2 flex flex-col">
+    <div className={`md:${fullWidth} p-4 shadow-md h-full sm:w-full `}>
+      <div className={`space-y-2 ${flexCol}`}>
         <div className={`${flexRow} justify-between items-center`}>
           <h3 className={`${textXSmall} font-semibold`}>{label}</h3>
           <Icon {...defaultIconStyle} size={24} />
         </div>
         {currentList.length === 0 || currentList === undefined
           ? null
-          : currentList.slice(0, 3).map((eachlist, index) => {
-              return (
-                <div className={`w-full sm:w-64`} key={index}>
-                  <li className="truncate">
-                    <span className={`${textXSmall} `}>{eachlist.title}</span>
-                  </li>
-                </div>
-              );
-            })}
-
-        <p className={`${textBase} font-bold`}>{subLabel}</p>
+          : currentList.slice(0, 3).map((eachlist, index) => (
+              <div className="w-full md:max-w-64" key={index}>
+                <li className="truncate">
+                  <span className={`${textXSmall} `}>{eachlist.title}</span>
+                </li>
+              </div>
+            ))}
+        <p className={`${textBase} font-bold mt-auto`}>{subLabel}</p>
       </div>
     </div>
   );
