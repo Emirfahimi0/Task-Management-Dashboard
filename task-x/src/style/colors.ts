@@ -11,6 +11,7 @@ export const colorBlue = {
   100: "#cffafe",
   300: "#7dd3fc",
   400: "#38bdf8",
+  500: "#22d3ee",
   900: "#172554",
 };
 
