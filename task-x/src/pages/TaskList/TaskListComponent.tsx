@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent } from "react";
+import { Fragment, FunctionComponent, useMemo } from "react";
 import {
   TaskAlertNotification,
   ContainerCard,
@@ -32,30 +32,44 @@ export const TaskListComponent: FunctionComponent<TaskListComponentProps> = ({
   loading,
   showAlert,
 }: TaskListComponentProps) => {
-  const isTaskListExist = taskList === undefined || taskList.length === 0;
+  const isTaskListEmpty = taskList === undefined || taskList.length === 0;
 
-  const completedTask = isTaskListExist
-    ? []
-    : taskList.filter((eachTask) => eachTask.completed === true);
+  const completedTask = useMemo(() => {
+    const data = isTaskListEmpty
+      ? []
+      : taskList.filter((eachTask) => eachTask.completed === true);
+    return data;
+  }, [taskList, isTaskListEmpty]);
 
-  const completedTaskLabel = isTaskListExist
+  const completedTaskLabel = isTaskListEmpty
     ? "0/0"
     : `${completedTask.length}/${taskList.length}`;
 
-  const recentTask = isTaskListExist
+  const recentTask = isTaskListEmpty
     ? []
     : taskList
         ?.slice()
         .sort(
           (a, b) =>
             new Date(b.dueDate || "").getTime() -
-            new Date(a.dueDate || "").getTime(),
+            new Date(a.dueDate || "").getTime()
         )
         .slice(0, 3);
 
-  const recentTaskLabel = isTaskListExist
+  const recentTaskLabel = isTaskListEmpty
     ? "0/0"
     : `${recentTask.length}/${taskList.length}`;
+
+  const importantTask = useMemo(() => {
+    const data = isTaskListEmpty
+      ? []
+      : taskList.filter((eachTask) => eachTask.urgency === true);
+    return data;
+  }, [taskList, isTaskListEmpty]);
+
+  const importantTaskLabel = isTaskListEmpty
+    ? "0/0"
+    : `${importantTask.length}/${taskList.length}`;
 
   const cardList: ContainerCardProps[] = [
     {
@@ -78,20 +92,20 @@ export const TaskListComponent: FunctionComponent<TaskListComponentProps> = ({
     },
     {
       label: LABEL.IMPORTANT_TASK_LABEL,
-      subLabel: "2/10",
+      subLabel: importantTaskLabel,
       iconStyle: { icon: "md-alert", color: colorRed[500] },
-      currentList: recentTask,
+      currentList: importantTask,
     },
   ];
 
   return (
     <Fragment>
-      <div className="flex flex-col justify-center items-center">
+      <div className={`${flexCol}`}>
         <div className={`${flexCol} md:flex-row w-full sm:w-full`}>
           {cardList.map((props, index) => {
             return (
               <Fragment key={index}>
-                <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2">
+                <div className="w-full sm:w-full md:w-full">
                   <ContainerCard {...props} />
                 </div>
               </Fragment>
@@ -112,7 +126,7 @@ export const TaskListComponent: FunctionComponent<TaskListComponentProps> = ({
             />
           </div>
         )}
-        <div className="w-full">
+        <div>
           <ContainerTask
             loading={loading}
             taskList={taskList}
