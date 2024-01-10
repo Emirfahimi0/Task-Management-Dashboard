@@ -1,10 +1,10 @@
-type TypeStatus = "completed" | "Important";
+export type TypeStatus = "completed" | "important" | "recently" | "incomplete";
 
 export declare interface Tasks {
-  userId: number;
+  id: number;
   title: string;
   completed: boolean;
   dueDate?: string;
-  status?: TypeStatus;
+  status: TypeStatus;
   errorTitle?: string;
 }
