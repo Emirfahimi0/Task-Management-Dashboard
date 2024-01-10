@@ -1,5 +1,5 @@
 import { TaskListProvider } from "./context";
-import { TaskListComponent } from "./Public/TaskListComponent";
+import { TaskListComponent } from "./pages/TaskList/TaskListComponent";
 
 function App() {
   return (
