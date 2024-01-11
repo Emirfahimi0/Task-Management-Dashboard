@@ -79,7 +79,7 @@ export const TaskList: FunctionComponent<TaskListProps> = ({
 
   return (
     <div
-      className={`${fullWidth} ${flexCol} md:shadow-md`}
+      className={`md:shadow-md`}
       style={{
         borderRadius: 4,
         borderWidth: 1,
@@ -91,7 +91,7 @@ export const TaskList: FunctionComponent<TaskListProps> = ({
           className={`${flexCol} gap-2 md:flex-row justify-between items-center`}
         >
           <div
-            className={`${fullWidth} md:w-2/3 text-center md:text-left break-normal mb-2 `}
+            className={`${fullWidth} text-center md:text-left break-normal mb-2 `}
           >
             <div className="max-w-md text-wrap">
               <p className="truncate">{title}</p>
