@@ -5,7 +5,9 @@ export declare interface Tasks {
   title: string;
   completed: boolean;
   dueDate?: string;
+  description?: string;
   status: TypeStatus;
   urgency?: boolean;
   errorTitle?: string;
+  errorDescription?: string;
 }
