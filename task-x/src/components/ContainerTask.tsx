@@ -3,7 +3,7 @@ import { centerHorizontal, centerText, colorGreen } from "../style";
 import { CirclesWithBar } from "react-loader-spinner";
 import { ENGLISH } from "../constant";
 import { Tasks, TypeStatus } from "../@types/task";
-import { TaskList } from ".";
+import { TaskCard } from "./TaskList/TaskCard";
 
 const { LABEL } = ENGLISH;
 
@@ -81,8 +81,8 @@ export const ContainerTask: FunctionComponent<ContainerTaskProps> = ({
 
                   return (
                     <Fragment key={`${index}+${props.id}`}>
-                      <div className="py-4">
-                        <TaskList
+                      <div className="py-4 ">
+                        <TaskCard
                           {...props}
                           handleDelete={() => handleDeleteTask(props.id)}
                           handleMarkComplete={handleMarkCompleteTask}

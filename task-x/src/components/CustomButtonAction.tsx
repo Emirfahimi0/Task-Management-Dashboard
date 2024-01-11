@@ -2,7 +2,7 @@ import { CSSProperties, FunctionComponent } from "react";
 import { centerHorizontal, colorGreen } from "../style";
 import { Icon, IconProps } from "./IcoMoon";
 
-interface CustomButtonActionProps {
+export interface CustomButtonActionProps {
   label?: string;
   onPress: () => void;
   textColor: string;
