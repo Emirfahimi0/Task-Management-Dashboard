@@ -19,7 +19,6 @@ const { LABEL } = ENGLISH;
 
 interface TaskListComponentProps {
   taskList: Tasks[] | undefined;
-  addTask: (tasks: Tasks) => void;
   updateTaskList: (list: Tasks[]) => void;
   loading: boolean | undefined;
   showAlert: boolean;
@@ -27,7 +26,6 @@ interface TaskListComponentProps {
 
 export const TaskListComponent: FunctionComponent<TaskListComponentProps> = ({
   taskList,
-  addTask,
   updateTaskList,
   loading,
   showAlert,
@@ -100,7 +98,7 @@ export const TaskListComponent: FunctionComponent<TaskListComponentProps> = ({
 
   return (
     <Fragment>
-      <div className={`${flexCol}`}>
+      <div className={flexCol}>
         <div className={`${flexCol} md:flex-row w-full sm:w-full`}>
           {cardList.map((props, index) => {
             return (
@@ -126,11 +124,10 @@ export const TaskListComponent: FunctionComponent<TaskListComponentProps> = ({
             />
           </div>
         )}
-        <div>
+        <div className="flex flex-1">
           <ContainerTask
             loading={loading}
             taskList={taskList}
-            addTask={addTask}
             updateTaskList={updateTaskList}
           />
         </div>
