@@ -17,13 +17,25 @@ export const ENGLISH = {
 
   TASK: {
     ERROR_TITLE_BLANK: "Title cannot be empty",
-    ERROR_TITLE_LENGTH: "Title length cannot be less than 10 characters",
+    ERROR_DESCRIPTION_BLANK: "Description cannot be empty",
+    ERROR_TITLE_LENGTH_LESS: "Title length cannot be less than 10 characters",
+    ERROR_DESCRIPTION_LENGTH_LESS:
+      "Description length cannot be less than 10 characters",
+    ERROR_TITLE_LENGTH_MORE: "Title length more than 25 characters",
+    ERROR_DESCRIPTION_LENGTH_MORE: "Description length more than 25 characters",
     DUE_DATE_LABEL: " Due Date: ",
     MARK_COMPLETE_LABEL: "Complete",
     MARK_INCOMPLETE_LABEL: "Incomplete",
   },
+  FORM: {
+    CREATE_TASK_SUB_LABEL: "Lets create a new task!",
+    CREATE_TASK_TITLE_LABEL: "Create Task",
+    OPTION_COMPLETE_LABEL: "Complete",
+    OPTION_IMPORTANT_LABEL: "Important",
+  },
   INPUT: {
-    PLACE_HOLDER: "Create a new task",
+    TITLE_PLACE_HOLDER: "Create a new task",
+    DESCRIPTION_PLACE_HOLDER: "Enter Description",
     ERROR_SNAP: "Oh Snapp!",
   },
 };
