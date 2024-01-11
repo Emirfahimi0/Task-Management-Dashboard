@@ -31,7 +31,7 @@ export const ContainerCard: FunctionComponent<ContainerCardProps> = ({
         {currentList.length === 0 || currentList === undefined
           ? null
           : currentList.slice(0, 3).map((eachlist, index) => (
-              <div className="w-full md:max-w-64" key={index}>
+              <div className="w-full max-w-44" key={index}>
                 <li className="truncate">
                   <span className={`${textXSmall} `}>{eachlist.title}</span>
                 </li>
