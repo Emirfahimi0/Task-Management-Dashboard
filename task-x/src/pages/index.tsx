@@ -2,13 +2,9 @@ import { Fragment, FunctionComponent, useState } from "react";
 import { useTaskList } from "../context";
 
 import { TaskListPage } from "./TaskList";
-import {
-  SideBarComponent,
-  SidebarItem,
-  SidebarItemProps,
-} from "../components/SideBarComponent";
 import { colorGreen } from "../style";
-import { CreateTaskList } from "./TaskList/TaskForm";
+import { CreateTaskList } from "./TaskForm";
+import { SideBar, SidebarItem, SidebarItemProps } from "../components";
 
 export type currentContent = "taskList" | "createForm";
 
@@ -19,7 +15,7 @@ export const DashBoard: FunctionComponent = () => {
   const [currentContent, setCurrentContent] =
     useState<currentContent>("taskList");
 
-  const taskListProps = {
+  const props = {
     taskList,
     addTask,
     showAlert,
@@ -38,11 +34,11 @@ export const DashBoard: FunctionComponent = () => {
   let content: JSX.Element = <div />;
 
   if (currentContent === "taskList") {
-    content = <TaskListPage {...taskListProps} />;
+    content = <TaskListPage {...props} />;
   }
 
   if (currentContent === "createForm") {
-    content = <CreateTaskList />;
+    content = <CreateTaskList {...props} />;
   }
 
   const itemsList: SidebarItemProps[] = [
@@ -70,13 +66,19 @@ export const DashBoard: FunctionComponent = () => {
 
   return (
     <Fragment>
-      <div className="flex flex-col md:flex-row min-h-screen xs:max-w-full max-w-screen-3xl">
-        <SideBarComponent expanded={expanded} handleExpanded={handleExpand}>
-          {itemsList.map((props) => {
-            return <SidebarItem {...props} />;
+      <div className="flex flex-col md:flex-row min-h-screen  max-w-screen-3xl">
+        <SideBar expanded={expanded} handleExpanded={handleExpand}>
+          {itemsList.map((props, index) => {
+            return (
+              <Fragment key={index}>
+                <SidebarItem {...props} />
+              </Fragment>
+            );
           })}
-        </SideBarComponent>
-        <div className={`p-4 md:w-full`}>{content}</div>
+        </SideBar>
+        <div className="flex flex-1">
+          <main className="flex-1 px-4 py-8">{content}</main>
+        </div>
       </div>
     </Fragment>
   );
